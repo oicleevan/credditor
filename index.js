@@ -1,21 +1,36 @@
-const { Client, Intents } = require('discord.js')
 const sys = require('process');
+const fs = require('fs');
+const { Client, Collection, Intents } = require('discord.js');
+const { token } = require('./token.json');
+const { prefix } = require('./config.json')
 
-const prefix = require('./config.json')
+const client  = new Client({ intents: [Intents.FLAGS.GUILDS]});
 
-var token
+client.commands = new Collection();
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-if(sys.argv[2] != null) {
-	token = sys.argv[2];
-} else {
-	console.log("Please include an oauth password.");
-	sys.exit();
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.data.name, command);
 }
 
-const client = new Client({intents: [Intents.FLAGS.GUILDS] })
-
 client.once('ready', () => {
-    console.log('The bot is now enabled.');
+    console.log('The bot is now online.');
+});
+
+client.on('interactionCreate', async interaction => {
+    if(!interaction.isCommand()) return;
+
+    const command = client.commands.get(interaction.commandName);
+
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 })
 
-client.login(token)
+client.login(token);
