@@ -1,4 +1,13 @@
 import discord
+import sys
+
+token = '' # token requires input at runtime for security reasons
+
+# sets token if presented #
+if(len(sys.argv) >= 2):
+    token = sys.argv[1]
+else:
+    quit()
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -18,4 +27,4 @@ class MyClient(discord.Client):
             return
 
 client = MyClient()
-client.run('OTA2MDI0NTY2MzQ4OTc2MTI4.YYSnIQ.Ro5t_ONPYT1uPEO46YcO6qrMQg4')
+client.run(token)
