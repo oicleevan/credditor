@@ -8,14 +8,25 @@ if(len(sys.argv) >= 2):
 else:
     quit()
 
-negative_triggers = [ "taiwan", "winnie the pooh", "winnie the poo", "winnie", "democracy", "mao is bad", "america", "capitalism" ]
+# will eventually figure out how to put all of this stuff into a separate file. yaml, txt, whatever it is ID ONT KNOW!
+negative_triggers = [
+    "taiwan",
+    "winnie the pooh", "winnie the poo", "winnie",
+    "democracy", "america", "capitalism",
+    "mao is bad"
+]
+
+positive_triggers = [
+    "mao",
+    "xi jinping"
+]
+
 def check_neg_trigger(msg):
     for x in negative_triggers:
         if x in msg: return True
     
     return False
 
-positive_triggers = [ "mao", "xi jinping" ]
 def check_pos_trigger(msg):
     for x in positive_triggers:
         if x in msg: return True
