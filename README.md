@@ -3,7 +3,7 @@ Social credit bot for Discord
 
 ## running
 
-`python index.py {token}`
+To start the bot, simply execute `python3 src/index.py {bot token}` from the root folder.
 
 Token has to be presented at runtime for secutity purposes
 
