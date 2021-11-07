@@ -1,5 +1,23 @@
 import discord
+from discord.ext import commands
 import sys
+from os.path import exists
+from configparser import ConfigParser
+
+config = ConfigParser()
+
+def config_setup(file):
+    config["APP OPTIONS"] = {
+        "reply_ping": "false"
+    }
+
+    with open(file, 'w') as conf:
+        config.write(conf)
+
+if exists("config.ini") == False: config_setup('config.ini')
+
+config.read('config.ini')
+app_options = config["APP OPTIONS"]
 
 # token requires input at runtime for security reasons
 token = '' 
@@ -13,7 +31,9 @@ negative_triggers = [
     "taiwan",
     "winnie the pooh", "winnie the poo", "winnie",
     "democracy", "america", "capitalism",
-    "mao is bad"
+    "tankman",
+    "tiananmen square", "tianenmen square"
+    "1989"
 ]
 
 positive_triggers = [
@@ -22,7 +42,10 @@ positive_triggers = [
     "china numba one", "china number one", "china numba 1", "china number 1",
     "pubg", "player unknown",
     "lao gan ma", "bing chilling",
-    "john cena"
+    "john cena",
+    "xue hua piao piao",
+    "shashumga",
+    "ching cheng hanji"
 ]
 
 def check_neg_trigger(msg):
@@ -33,11 +56,13 @@ def check_pos_trigger(msg):
     for x in positive_triggers:
         if x in msg: return True
 
-client = discord.Client()
+client = commands.Bot(command_prefix="!")
 
 @client.event
 async def on_ready():
     print('# Logged on as {0.user}!'.format(client))
+    config.read('config.ini')
+    app_options = config["APP OPTIONS"]
 
 @client.event
 async def on_message(message):
@@ -46,16 +71,30 @@ async def on_message(message):
 
     print('Message from {0.author}: {0.content}'.format(message))
 
-    if check_neg_trigger(message.content.lower()) == True:
-        await message.reply('-1000000 social credit!! 😭')
-        return
+    msg = message.content.lower()
 
-    if check_pos_trigger(message.content.lower()) == True:
-        await message.reply('+100 social credit!! 👲🤏')
-        return
+    if check_neg_trigger(msg) == True:
+        print('\t' + str(message.author) + ' triggered negative social credit!')
+        if app_options["reply_ping"] == "false":
+            await message.reply('-1000000 social credit!! 😭', mention_author=False)
+        else:
+            await message.reply('-1000000 social credit!! 😭')
+
+    if check_pos_trigger(msg) == True:
+        print('\t' + str(message.author) + ' triggered positive social credit!')
+        if app_options["reply_ping"] == "false":
+            await message.reply('+100 social credit!! 👲🤏', mention_author=False)
+        else:
+            await message.reply('+100 social credit!! 👲🤏')
+
+    await client.process_commands(message)
 
 @client.event
 async def on_guild_join(guild):
     print('# Joined ' + guild.name + '.')
+
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
 
 client.run(token)
