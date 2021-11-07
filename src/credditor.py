@@ -28,34 +28,34 @@ positive_triggers = [
 def check_neg_trigger(msg):
     for x in negative_triggers:
         if x in msg: return True
-    
-    return False
 
 def check_pos_trigger(msg):
     for x in positive_triggers:
         if x in msg: return True
-    
-    return False
 
-class Credditor(discord.Client):
-    async def on_ready(self):
-        print('# Logged on as {0}!'.format(self.user))
+client = discord.Client()
 
-    async def on_message(self, message):
-        if message.author == client.user: return
+@client.event
+async def on_ready():
+    print('# Logged on as {0.user}!'.format(client))
 
-        print('Message from {0.author}: {0.content}'.format(message))
+@client.event
+async def on_message(self, message):
+    if message.author == client.user: return
+    if str(message.author) == "travis#2799": return # L nerd
 
-        if check_neg_trigger(message.content.lower()) == True:
-            await message.reply('-1000000 social credit!! 😭')
-            return
+    print('Message from {0.author}: {0.content}'.format(message))
 
-        if check_pos_trigger(message.content.lower()) == True:
-            await message.reply('+100 social credit!! 👲🤏')
-            return
+    if check_neg_trigger(message.content.lower()) == True:
+        await message.reply('-1000000 social credit!! 😭')
+        return
 
-    async def on_guild_join(self, guild):
-        print('# Joined ' + guild.name + '.')
+    if check_pos_trigger(message.content.lower()) == True:
+        await message.reply('+100 social credit!! 👲🤏')
+        return
 
-client = Credditor()
+@client.event
+async def on_guild_join(self, guild):
+    print('# Joined ' + guild.name + '.')
+
 client.run(token)
