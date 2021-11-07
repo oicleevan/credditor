@@ -40,7 +40,7 @@ async def on_ready():
     print('# Logged on as {0.user}!'.format(client))
 
 @client.event
-async def on_message(self, message):
+async def on_message(message):
     if message.author == client.user: return
     if str(message.author) == "travis#2799": return # L nerd
 
@@ -55,7 +55,7 @@ async def on_message(self, message):
         return
 
 @client.event
-async def on_guild_join(self, guild):
+async def on_guild_join(guild):
     print('# Joined ' + guild.name + '.')
 
 client.run(token)
