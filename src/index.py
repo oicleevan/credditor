@@ -18,7 +18,11 @@ negative_triggers = [
 
 positive_triggers = [
     "mao",
-    "xi jinping"
+    "xi jinping",
+    "china numba one", "china number one", "china numba 1", "china number 1",
+    "pubg", "player unknown",
+    "lao gan ma", "bing chilling",
+    "john cena"
 ]
 
 def check_neg_trigger(msg):
@@ -33,7 +37,7 @@ def check_pos_trigger(msg):
     
     return False
 
-class MyClient(discord.Client):
+class Credditor(discord.Client):
     async def on_ready(self):
         print('# Logged on as {0}!'.format(self.user))
 
@@ -42,16 +46,16 @@ class MyClient(discord.Client):
 
         print('Message from {0.author}: {0.content}'.format(message))
 
-        if check_neg_trigger(message.content) == True:
+        if check_neg_trigger(message.content.lower()) == True:
             await message.reply('-1000000 social credit!! 😭')
             return
 
-        if check_pos_trigger(message.content) == True:
+        if check_pos_trigger(message.content.lower()) == True:
             await message.reply('+100 social credit!! 👲🤏')
             return
 
     async def on_guild_join(self, guild):
         print('# Joined ' + guild.name + '.')
 
-client = MyClient()
+client = Credditor()
 client.run(token)
