@@ -18,7 +18,7 @@ class MyClient(discord.Client):
         
         print('Message from {0.author}: {0.content}'.format(message))
 
-        if "taiwan" in message.content:
+        if "taiwan" in message.content or "winnie the pooh" in  message.content:
             await message.channel.send('-100000000 social credit!!!!')
             return
 
