@@ -16,8 +16,10 @@ def config_setup(file):
 
 if exists("config.ini") == False: config_setup('config.ini')
 
-config.read('config.ini')
-app_options = config["APP OPTIONS"]
+def read_config(file):
+    config.read(file)
+    return config["APP OPTIONS"]
+app_options = read_config('config.ini')
 
 # token requires input at runtime for security reasons
 token = '' 
@@ -32,7 +34,7 @@ negative_triggers = [
     "winnie the pooh", "winnie the poo", "winnie",
     "democracy", "america", "capitalism",
     "tankman",
-    "tiananmen square", "tianenmen square"
+    "tiananmen square", "tianenmen square",
     "1989"
 ]
 
@@ -61,8 +63,7 @@ client = commands.Bot(command_prefix="!")
 @client.event
 async def on_ready():
     print('# Logged on as {0.user}!'.format(client))
-    config.read('config.ini')
-    app_options = config["APP OPTIONS"]
+    app_options = read_config('config.ini')
 
 @client.event
 async def on_message(message):
