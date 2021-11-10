@@ -3,6 +3,7 @@
 ## short term
 
 - command to reload config without restarting entirely
+- find a good host (@john)
 
 ## long term
 
