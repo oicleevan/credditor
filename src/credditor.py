@@ -9,7 +9,7 @@ config = ConfigParser()
 def config_setup(file):
     config["APP OPTIONS"] = {
         "prefix": "-social",
-        "reply_ping": "false ; please make true or false"
+        "reply_ping": "false"
     }
 
     with open(file, 'w') as conf:
@@ -29,7 +29,7 @@ prefix = ''
 if config.has_option("APP OPTIONS", "prefix"):
     prefix = str(app_options["prefix"])
 else:
-    prefix = '-social'
+    prefix = '!'
 
 # token requires input at runtime for security reasons
 token = '' 
@@ -69,7 +69,7 @@ def check_pos_trigger(msg):
     for x in positive_triggers:
         if x in msg: return True
 
-client = commands.Bot(command_prefix=prefix + ' ')
+client = commands.Bot(command_prefix=prefix)
 
 @client.event
 async def on_ready():
@@ -85,14 +85,14 @@ async def on_message(message):
     msg = message.content.lower()
 
     if check_neg_trigger(msg) == True:
-        print(f'\t {str(message.author)} triggered negative social credit!')
+        print(f'# {str(message.author)} triggered negative social credit!')
         if app_options["reply_ping"] == "false":
             await message.reply('-1000000 social credit!! 😭', mention_author=False)
         else:
             await message.reply('-1000000 social credit!! 😭')
 
     if check_pos_trigger(msg) == True:
-        print('\t' + str(message.author) + ' triggered positive social credit!')
+        print(f'# f{str(message.author)} triggered positive social credit!')
         if app_options["reply_ping"] == "false":
             await message.reply('+100 social credit!! 👲🤏', mention_author=False)
         else:
@@ -106,6 +106,6 @@ async def on_guild_join(guild):
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+    await ctx.reply(f'Pong! {round(client.latency * 1000)}ms')
 
 client.run(token)
