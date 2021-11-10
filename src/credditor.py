@@ -8,24 +8,35 @@ config = ConfigParser()
 
 def config_setup(file):
     config["APP OPTIONS"] = {
-        "reply_ping": "false"
+        "prefix": "-social",
+        "reply_ping": "false ; please make true or false"
     }
 
     with open(file, 'w') as conf:
         config.write(conf)
 
-if exists("config.ini") == False: config_setup('config.ini')
+if exists("config.ini") == False:
+    print('> Config file does not exist, creating...')
+    config_setup('config.ini')
+    print('> Config file created.')
 
 def read_config(file):
     config.read(file)
     return config["APP OPTIONS"]
 app_options = read_config('config.ini')
 
+prefix = ''
+if config.has_option("APP OPTIONS", "prefix"):
+    prefix = str(app_options["prefix"])
+else:
+    prefix = '-social'
+
 # token requires input at runtime for security reasons
 token = '' 
 if(len(sys.argv) >= 2):
     token = sys.argv[1]
 else:
+    print('Please include a bot token!')
     quit()
 
 # will eventually figure out how to put all of this stuff into a separate file. yaml, txt, whatever it is ID ONT KNOW!
@@ -58,12 +69,11 @@ def check_pos_trigger(msg):
     for x in positive_triggers:
         if x in msg: return True
 
-client = commands.Bot(command_prefix="!")
+client = commands.Bot(command_prefix=prefix + ' ')
 
 @client.event
 async def on_ready():
     print('# Logged on as {0.user}!'.format(client))
-    app_options = read_config('config.ini')
 
 @client.event
 async def on_message(message):
@@ -75,7 +85,7 @@ async def on_message(message):
     msg = message.content.lower()
 
     if check_neg_trigger(msg) == True:
-        print('\t' + str(message.author) + ' triggered negative social credit!')
+        print(f'\t {str(message.author)} triggered negative social credit!')
         if app_options["reply_ping"] == "false":
             await message.reply('-1000000 social credit!! 😭', mention_author=False)
         else:
