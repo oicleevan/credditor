@@ -17,6 +17,8 @@ Token has to be presented at runtime for secutity purposes
 
 Contributing is welcome and appreciated. All you have to do is submit a pull request!
 
+Features are listed in [the roadmap document](ROADMAP.md). If you want features added, feel free to request it in there -- if I find it to be worth my time, I'll accept the commit and it'll be in the ROADMAP for me to stare at and eventually do something with!
+
 All contributions are license under the MIT License. By submitting a pull request, you agree with this stipulation.
 
 ## thanks!
