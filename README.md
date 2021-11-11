@@ -1,4 +1,5 @@
 # credditor
+
 Social credit bot for Discord
 
 ## what is this?
@@ -9,7 +10,7 @@ It reacts to certain keywords, and will send a message giving positive or negati
 
 ## running
 
-To start the bot, simply execute `python3 src/credditor.py {bot token}` from the root folder.
+To start the bot, simply execute `python3 credditor.py {bot token}` from the `src/` folder.
 
 Token has to be presented at runtime for secutity purposes
 

@@ -15,15 +15,15 @@ def config_setup(file):
     with open(file, 'w') as conf:
         config.write(conf)
 
-if exists("config.ini") == False:
+if exists("conf/config.ini") == False:
     print('> Config file does not exist, creating...')
-    config_setup('config.ini')
+    config_setup('conf/config.ini')
     print('> Config file created.')
 
 def read_config(file):
     config.read(file)
     return config["APP OPTIONS"]
-app_options = read_config('config.ini')
+app_options = read_config('conf/config.ini')
 
 prefix = ''
 if config.has_option("APP OPTIONS", "prefix"):
@@ -38,28 +38,36 @@ if(len(sys.argv) >= 2):
 else:
     print('Please include a bot token!')
     quit()
+ 
+negative_triggers = []
+def set_neg_trig(file):
+    f = open(file, 'r+')
+    f_line = f.readlines()
+    
+    for x in f_line:
+        negative_triggers.append(x.strip())
 
-# will eventually figure out how to put all of this stuff into a separate file. yaml, txt, whatever it is ID ONT KNOW!
-negative_triggers = [
-    "taiwan",
-    "winnie the pooh", "winnie the poo", "winnie",
-    "democracy", "america", "capitalism",
-    "tankman",
-    "tiananmen square", "tianenmen square",
-    "1989"
-]
+if exists('conf/negative_trig.txt') == True:
+    print('> Found negative_trig file.')
+    set_neg_trig('conf/negative_trig.txt')
+else:
+    print('Please create a text file `conf/negative_trig.txt` and include negative social credit triggers.')
+    quit()
 
-positive_triggers = [
-    "mao",
-    "xi jinping",
-    "china numba one", "china number one", "china numba 1", "china number 1",
-    "pubg", "player unknown",
-    "lao gan ma", "bing chilling",
-    "john cena",
-    "xue hua piao piao",
-    "shashumga",
-    "ching cheng hanji"
-]
+positive_triggers = []
+def set_neg_trig(file):
+    f = open(file, 'r+')
+    f_line = f.readlines()
+    
+    for x in f_line:
+        positive_triggers.append(x.strip())
+
+if exists('conf/positive_trig.txt') == True:
+    print('> Found positive_trig file.')
+    set_neg_trig('conf/positive_trig.txt')
+else:
+    print('Please create a text file `conf/positive_trig.txt` and include positive social credit triggers.')
+    quit()
 
 def check_neg_trigger(msg):
     for x in negative_triggers:
@@ -73,7 +81,7 @@ client = commands.Bot(command_prefix=prefix)
 
 @client.event
 async def on_ready():
-    print('# Logged on as {0.user}!'.format(client))
+    print('\n# Logged on as {0.user}!\n'.format(client))
 
 @client.event
 async def on_message(message):
