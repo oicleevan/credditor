@@ -10,9 +10,9 @@ It reacts to certain keywords, and will send a message giving positive or negati
 
 ## running
 
-To start the bot, simply execute `python3 credditor.py {bot token}` from the `src/` folder.
+To start the bot, simply clone the repository, navgate to the `src/` folder, and execute `python3 credditor.py {bot token}`.
 
-Token has to be presented at runtime for secutity purposes
+The Discord bot token has to be presented at runtime for secutity purposes.
 
 ## contributing
 
