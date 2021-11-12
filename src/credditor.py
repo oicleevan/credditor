@@ -16,9 +16,11 @@ def config_setup(file):
         config.write(conf)
 
 if exists("conf/config.ini") == False:
-    print('> Config file does not exist, creating...')
+    print('> Config file \'config.ini\' does not exist, creating...')
     config_setup('conf/config.ini')
-    print('> Config file created.')
+    print('> Config file \'config.ini\' created.')
+else:
+    print('> Config file found.')
 
 def read_config(file):
     config.read(file)
@@ -88,7 +90,10 @@ async def on_message(message):
     if message.author == client.user: return
     if str(message.author) == "travis#2799": return # L nerd
 
-    print('Message from {0.author}: {0.content}'.format(message))
+    if str(message.guild) != 'None':
+        print(f'Message from {message.author} in {message.guild}.{message.channel}: {message.content}')
+    else:
+        print(f'Message from {message.author} in {message.channel}: {message.content}')
 
     msg = message.content.lower()
 
@@ -110,7 +115,7 @@ async def on_message(message):
 
 @client.event
 async def on_guild_join(guild):
-    print('# Joined ' + guild.name + '.')
+    print(f'# Joined {guild.name}.')
 
 @client.command()
 async def ping(ctx):
