@@ -10,7 +10,11 @@ It reacts to certain keywords, and will send a message giving positive or negati
 
 ## running
 
-The discord.py extension is required, `pip install discord.py`.
+The discord.py extension is required, `pip -r requirements.txt`.
+
+Run the query.sql in your mysql db.
+
+Insert the credentials of your db in src/credditor.py.
 
 To start the bot, simply clone the repository, navgate to the `src/` folder, and execute `python3 credditor.py {bot token}`.
 
@@ -23,7 +27,3 @@ Contributing is welcome and appreciated. All you have to do is submit a pull req
 Features are listed in [ROADMAP.md](ROADMAP.md). If you want features added, feel free to request it in there -- if I find it to be worth my time, I'll accept the commit and it'll be in the ROADMAP for me to stare at and eventually do something with!
 
 All contributions are licensed under the MIT License, as with this project. By submitting a pull request, you agree with this stipulation.
-
-## thanks!
-
--- [oicleevan](https://github.com/oiclevan)
