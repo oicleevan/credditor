@@ -6,7 +6,7 @@ Social credit bot for Discord
 
 This is a discord bot that acts as a social credit monitor for servers. It is a reference to the notorious Chinese social credit system, and memes generated around it.
 
-It reacts to certain keywords, and will send a message giving positive or negative social credit depending on the contents.
+Server admins and mods can add or remove a specific amount of social credit points at will, and users can see their score!!
 
 ## running
 
