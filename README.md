@@ -10,11 +10,9 @@ It reacts to certain keywords, and will send a message giving positive or negati
 
 ## running
 
-The discord.py extension is required, `pip -r requirements.txt`.
+External dependencies are required, to install, execute `pip -r requirements.txt`.
 
-Run the query.sql in your mysql db.
-
-Insert the credentials of your db in src/credditor.py.
+Run the query.sql in your mysql db, and insert your db's credentials in `src/credditor.py` (see database configuration).
 
 To start the bot, simply clone the repository, navgate to the `src/` folder, and execute `python3 credditor.py {bot token}`.
 
