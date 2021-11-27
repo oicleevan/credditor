@@ -149,13 +149,15 @@ async def rm_error(ctx, error):
 @client.command(name="help")
 async def bot_help(ctx):
     await ctx.reply(f"\n**User commands:**
-                    \n    **ccp!social**: View social credit.
-                    \n**Admin commands:**:
+                    \n    **{prefix}help**: View this message.
+                    \n    **{prefix}points**: View social credit.
+                    \n    **{prefix}ping**: Pong!
+                    \n\n**Admin commands:**:
                     \n    **{prefix}socialadd**: Add points to user.
                     \n    **{prefix}socialrem**: Remove points from user."
                     )
 
-@client.command(name="credit")
+@client.command(name="points")
 async def credit_amount():
     id = message.author.id
 
