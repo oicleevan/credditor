@@ -10,7 +10,7 @@ Server admins and mods can add or remove a specific amount of social credit poin
 
 ## running
 
-External dependencies are required, to install, execute `pip -r requirements.txt`.
+External python dependencies are required, to install, execute `pip -r DEPENDENCIES.txt`.
 
 Run the query.sql in your mysql db, and insert your db's credentials in `src/credditor.py` (see database configuration).
 
