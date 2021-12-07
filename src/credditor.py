@@ -7,7 +7,10 @@ from configparser import ConfigParser
 
 # Database configuration 
 db = mysql.connector.connect(
-  host="192.168.0.20",
+  # PLEASE EDIT THESE TO INCLUDE YOUR HOST ADDRESS AND PORTS!!!
+  host="",
+  port="",
+  # END
   user="root",
   password="",
   database="china"
@@ -56,7 +59,7 @@ client = commands.Bot(command_prefix=prefix)
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Game('ccp!help'))
+    await client.change_presence(activity=discord.Game('Papers Please'))
     print('\n# Logged on as {0.user}!\n'.format(client))
 
 @client.event
@@ -79,7 +82,7 @@ async def on_message(message):
 
     await client.process_commands(message)
 
-@client.command(name="socialadd")
+@client.command(name="social-add")
 @guild_only
 @has_permissions(manage_members=True)
 async def add_social(ctx):
@@ -112,7 +115,7 @@ async def add_error(ctx, error):
     if isinstance(error, MissingPermissions):
         await ctx.reply('You do not have permission to use this command!')
 
-@client.command(name="socialrem")
+@client.command(name="social-remove")
 @guild_only
 @has_permissions(manage_members=True)
 async def remove_social(ctx):
@@ -137,7 +140,7 @@ async def remove_social(ctx):
                 await ctx.reply(f"{credit_arg} social credit points have been taken from user with ID ``{id}``.")
                 
             except:
-                await ctx.reply(f"**Usage:** {prefix}socialrem (@user) (points amount)")")
+                await ctx.reply(f"**Usage:** {prefix}socialrem (@user) (points amount)")
         else:
             await ctx.reply(f"**Usage:** {prefix}socialrem (@user) (points amount)")
 
@@ -153,8 +156,8 @@ async def bot_help(ctx):
                     \n    **{prefix}points**: View social credit.
                     \n    **{prefix}ping**: Pong!
                     \n\n**Admin commands:**:
-                    \n    **{prefix}socialadd**: Add points to user.
-                    \n    **{prefix}socialrem**: Remove points from user."
+                    \n    **{prefix}social-add**: Add points to user.
+                    \n    **{prefix}social-remove**: Remove points from user."
                     )
 
 @client.command(name="points")
@@ -183,3 +186,4 @@ async def ping(ctx):
     await ctx.reply(f'Pong! {round(client.latency * 1000)}ms')
 
 client.run(token)
+
